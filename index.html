@@ -74,4 +74,81 @@
     }
     label{display:flex;gap:8px;font-size:13px;color:var(--muted)}
     .fine{font-size:12px;color:rgba(255,255,255,.5);margin-top:10px}
-    footer{margin-top:16px;font-size
+    footer{margin-top:16px;font-size:12px;color:rgba(255,255,255,.45);display:flex;justify-content:space-between}
+    a{color:rgba(255,255,255,.7)}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logo">M</div>
+        <div>
+          <strong>Marator</strong><br>
+          <span style="font-size:12px;color:var(--muted)">Adaptive marathon training</span>
+        </div>
+      </div>
+      <div class="pill">🚧 Launching soon</div>
+    </div>
+
+    <div class="card">
+      <div class="grid">
+        <div>
+          <h1>Training plans that adapt when life happens.</h1>
+          <p>
+            Marator automatically recalculates your marathon training plan when you
+            miss runs, travel, or get sick — so you stay on track without starting over.
+          </p>
+
+          <div class="features">
+            <div class="f">🧠 Auto-adjusted plans</div>
+            <div class="f">⏰ Built for busy runners</div>
+            <div class="f">📈 Real progress tracking</div>
+            <div class="f">🎯 Race-day focused</div>
+          </div>
+        </div>
+
+        <div class="signup">
+          <strong>Get early access</strong>
+          <p style="font-size:14px;margin-top:6px">
+            Be notified when we launch or join the beta.
+          </p>
+
+          <!-- Formspree integration -->
+          <form action="https://formspree.io/f/xzdvvdpd" method="POST">
+            <input type="email" name="email" placeholder="you@example.com" required>
+
+            <div style="margin-top:10px">
+              <label>
+                <input type="checkbox" name="notify_launch" checked>
+                Notify me at launch
+              </label>
+              <label>
+                <input type="checkbox" name="beta_interest">
+                I want TestFlight beta access
+              </label>
+            </div>
+
+            <input type="hidden" name="_subject" value="New Marator signup">
+            <input type="hidden" name="_template" value="table">
+
+            <button type="submit">Notify me</button>
+          </form>
+
+          <div class="fine">
+            No spam. Unsubscribe anytime.
+            <br>
+            <a href="/privacy">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2026 Marator</span>
+      <span><a href="/privacy">Privacy</a> · <a href="/faq">FAQ</a></span>
+    </footer>
+  </div>
+</body>
+</html>

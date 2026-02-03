@@ -4,439 +4,576 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Marator — Launching Soon</title>
-  <meta name="description" content="Marator helps runners stay on track with adaptive marathon plans that rebuild when life happens." />
+  <meta name="description" content="Marator is an adaptive marathon training app that updates your plan when life happens." />
 
   <style>
     :root{
-      --text:#0b1220;
-      --muted:#556070;
-      --border:rgba(15,23,42,.12);
-      --bg:#ffffff;
-      --soft:#f7f8fb;
-      --accent:#ff6b2c;
+      --bg:#07070b;
+      --bg2:#0b0b10;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.04);
+      --border: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.62);
+      --accent: #ff6b2c; /* Marator orange */
       --accent2:#ff9a6b;
-      --shadow: 0 20px 60px rgba(2,6,23,.10);
-      --shadow2: 0 14px 40px rgba(2,6,23,.08);
-      --radius:18px;
+      --shadow: 0 28px 80px rgba(0,0,0,.55);
+      --radius: 18px;
     }
+
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
+      color: var(--text);
       background:
-        radial-gradient(900px 420px at 80% 0%, rgba(255,107,44,.18), transparent 60%),
-        radial-gradient(900px 420px at 15% 20%, rgba(99,102,241,.10), transparent 55%),
-        var(--bg);
+        radial-gradient(900px 520px at 50% -50px, rgba(255,107,44,.22), transparent 60%),
+        radial-gradient(900px 520px at 18% 20%, rgba(120,80,255,.12), transparent 60%),
+        radial-gradient(900px 520px at 82% 35%, rgba(255,255,255,.06), transparent 65%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
     }
+
     a{color:inherit}
-    .container{width:min(1100px, 100%); margin:0 auto; padding: 0 18px;}
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:18px 0;
+    .container{width:min(1120px,100%); margin:0 auto; padding:0 18px;}
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(7,7,11,.58);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    /* NAV */
+    nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 0;
     }
     .brand{
-      display:flex; align-items:center; gap:12px; text-decoration:none;
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
     }
     .logo{
-      width:40px; height:40px; border-radius:14px;
+      width:40px; height:40px;
+      border-radius: 14px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 14px 40px rgba(255,107,44,.25);
+      box-shadow: 0 14px 40px rgba(255,107,44,.30);
       display:grid; place-items:center;
-      color:#0b1220; font-weight:900;
-      letter-spacing:-0.5px;
+      color:#0b0b10; font-weight:900;
+      letter-spacing:-0.4px;
     }
-    .brand .name{font-weight:800; letter-spacing:-0.3px;}
-    .navlinks{display:flex; gap:16px; align-items:center;}
+    .brand .name{font-weight:850; letter-spacing:-0.3px; line-height:1;}
+    .brand .tag{font-size:12px; color: var(--muted); margin-top:2px;}
+
+    .navlinks{
+      display:flex; gap:18px; align-items:center;
+      color: var(--muted);
+      font-size: 14px;
+    }
     .navlinks a{
-      text-decoration:none; color: rgba(11,18,32,.72);
-      font-size:14px;
+      text-decoration:none;
+      padding: 8px 10px;
+      border-radius: 999px;
     }
+    .navlinks a:hover{background: rgba(255,255,255,.05);}
+
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
-      padding:12px 16px;
-      border-radius: 14px;
-      border:1px solid var(--border);
-      background:#fff;
       text-decoration:none;
-      font-weight:700;
-      font-size:14px;
-      box-shadow: 0 8px 22px rgba(2,6,23,.06);
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 800;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
     }
     .btn.primary{
-      border:0;
+      border: none;
       background: var(--accent);
-      color:#0b1220;
-      box-shadow: 0 18px 46px rgba(255,107,44,.28);
+      color: #0b0b10;
+      box-shadow: 0 18px 60px rgba(255,107,44,.30);
     }
-    .btn.primary:hover{filter:brightness(1.02)}
-    .btn.ghost{background: rgba(255,255,255,.6);}
+    .btn.primary:hover{filter:brightness(1.03)}
+    .btn:active{transform: translateY(1px);}
 
     /* HERO */
-    .hero{
-      padding: 26px 0 34px;
-      display:grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
-      align-items:center;
+    header{
+      padding: 42px 0 26px;
     }
-    @media (max-width: 920px){
-      .hero{grid-template-columns: 1fr; padding-top: 10px;}
-      .navlinks{display:none;}
+    .hero{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap: 16px;
     }
 
     .kicker{
-      display:inline-flex; gap:10px; align-items:center;
+      display:inline-flex; align-items:center; gap:10px;
       padding: 8px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(255,107,44,.25);
+      border: 1px solid rgba(255,107,44,.28);
       background: rgba(255,107,44,.10);
-      color: rgba(11,18,32,.78);
+      color: rgba(255,255,255,.78);
+      font-weight: 700;
       font-size: 13px;
-      font-weight: 650;
     }
-    .kicker b{color: var(--accent)}
+    .kicker .dot{
+      width:8px; height:8px;
+      background: var(--accent);
+      border-radius: 99px;
+      box-shadow: 0 0 18px rgba(255,107,44,.55);
+    }
+
     h1{
-      margin: 14px 0 10px;
-      font-size: 52px;
-      line-height: 1.02;
+      margin: 0;
+      font-size: clamp(40px, 5vw, 64px);
+      line-height: 1.0;
       letter-spacing: -1.2px;
     }
-    @media (max-width: 520px){
-      h1{font-size: 40px;}
-    }
+    .accent{color: var(--accent);}
     .sub{
-      margin: 0 0 18px;
-      font-size: 17px;
-      line-height: 1.6;
-      color: rgba(11,18,32,.68);
+      margin: 0;
       max-width: 58ch;
-    }
-
-    .proof{
-      display:flex; gap:10px; flex-wrap:wrap;
-      align-items:center;
-      color: rgba(11,18,32,.65);
-      font-size: 13px;
-      margin-bottom: 18px;
-    }
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.72);
-      border: 1px solid var(--border);
-      box-shadow: 0 10px 28px rgba(2,6,23,.05);
-    }
-    .stars{letter-spacing:1px; color:#f59e0b;}
-
-    .ctas{display:flex; gap:12px; flex-wrap:wrap; align-items:center;}
-    .tiny{
-      font-size: 12px;
-      color: rgba(11,18,32,.55);
-      margin-top: 10px;
-    }
-
-    /* PHONE MOCK */
-    .phoneCard{
-      background: rgba(255,255,255,.62);
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-    .phone{
-      height: 520px;
-      border-radius: 28px;
-      border: 10px solid rgba(11,18,32,.92);
-      background: linear-gradient(180deg, #0b0b0f, #111827);
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-    }
-    .notch{
-      position:absolute; top:10px; left:50%; transform:translateX(-50%);
-      width: 140px; height: 26px; border-radius: 999px;
-      background: rgba(0,0,0,.35);
-    }
-    .screen{
-      padding: 18px;
-      color: rgba(255,255,255,.92);
-    }
-    .screen .pill{
-      display:inline-flex; padding: 7px 10px; border-radius:999px;
-      background: rgba(255,107,44,.16);
-      border: 1px solid rgba(255,107,44,.22);
-      font-size: 12px;
-      font-weight: 650;
-    }
-    .screen h3{
-      margin: 14px 0 10px;
-      font-size: 20px;
-      letter-spacing: -0.3px;
-    }
-    .screen p{
-      margin:0 0 12px;
-      color: rgba(255,255,255,.70);
-      font-size: 13px;
+      font-size: clamp(16px, 1.6vw, 18px);
       line-height: 1.55;
-    }
-    .miniGrid{display:grid; gap:10px; margin-top: 12px;}
-    .mini{
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 16px;
-      padding: 12px;
-    }
-    .mini .t{font-weight:750; font-size: 13px;}
-    .mini .d{color: rgba(255,255,255,.65); font-size: 12px; margin-top: 6px; line-height: 1.4;}
-
-    /* SECTIONS */
-    .section{
-      padding: 28px 0;
-    }
-    .sectionTitle{
-      font-size: 22px;
-      letter-spacing:-0.4px;
-      margin: 0 0 12px;
-    }
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    @media (max-width: 900px){
-      .grid3{grid-template-columns: 1fr;}
-    }
-    .card{
-      background: rgba(255,255,255,.72);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: 0 14px 40px rgba(2,6,23,.05);
-    }
-    .card .h{font-weight:800; margin-bottom:6px;}
-    .card .d{color: rgba(11,18,32,.68); line-height:1.55; font-size:14px;}
-
-    .how{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      align-items:start;
-    }
-    @media(max-width: 900px){
-      .how{grid-template-columns: 1fr;}
+      color: var(--muted);
     }
 
-    /* SIGNUP */
+    .heroActions{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      justify-content:center;
+      align-items:center;
+      margin-top: 6px;
+    }
+
+    /* Email form ABOVE FOLD */
     .signup{
-      background: linear-gradient(135deg, rgba(255,107,44,.12), rgba(99,102,241,.08));
-      border: 1px solid var(--border);
+      width: min(760px, 100%);
+      margin-top: 12px;
+      padding: 14px;
       border-radius: 22px;
-      padding: 18px;
-      box-shadow: var(--shadow2);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      box-shadow: var(--shadow);
     }
-    form{margin-top: 10px;}
+    .signupTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .signupTitle{
+      font-size: 16px;
+      font-weight: 850;
+      letter-spacing: -0.2px;
+    }
+    .signupHint{
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    form{margin:0;}
     .row{
-      display:flex; gap:10px; flex-wrap:wrap;
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap:wrap;
     }
     input[type="email"]{
       flex: 1;
-      min-width: 220px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.82);
-      font-size: 14px;
-      outline:none;
+      min-width: 240px;
+      border-radius: 16px;
+      padding: 14px 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.35);
+      color: var(--text);
+      outline: none;
+      font-size: 15px;
     }
+    input[type="email"]::placeholder{color: rgba(255,255,255,.45);}
+
+    .submitBtn{
+      border: none;
+      border-radius: 16px;
+      padding: 14px 18px;
+      background: var(--accent);
+      color: #0b0b10;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 15px;
+      box-shadow: 0 18px 60px rgba(255,107,44,.28);
+    }
+    .submitBtn:hover{filter:brightness(1.03)}
+
     .checks{
+      display:flex;
+      justify-content:center;
+      gap: 18px;
+      flex-wrap:wrap;
       margin-top: 10px;
-      display:grid; gap: 8px;
-      color: rgba(11,18,32,.70);
+      color: var(--muted);
       font-size: 13px;
     }
-    label{display:flex; gap:10px; align-items:flex-start;}
-    input[type="checkbox"]{margin-top: 2px;}
+    label{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+    }
+    input[type="checkbox"]{transform: scale(1.05);}
+
     .fine{
       margin-top: 10px;
       font-size: 12px;
-      color: rgba(11,18,32,.58);
+      color: rgba(255,255,255,.52);
+      text-align:center;
       line-height: 1.45;
     }
-    .fine a{color: rgba(11,18,32,.72);}
-    footer{
-      padding: 18px 0 28px;
-      color: rgba(11,18,32,.55);
-      font-size: 12px;
-      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    .fine a{color: rgba(255,255,255,.72); text-decoration:none;}
+    .fine a:hover{text-decoration:underline;}
+
+    /* Social proof row (no fake claims) */
+    .proofRow{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top: 10px;
+      color: rgba(255,255,255,.70);
+      font-size: 13px;
     }
-    footer a{color: rgba(11,18,32,.7); text-decoration:none;}
-    footer a:hover{text-decoration:underline;}
+    .proof{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+    }
+    .proof .chip{
+      width: 10px; height: 10px;
+      border-radius: 99px;
+      background: rgba(255,107,44,.95);
+      box-shadow: 0 0 18px rgba(255,107,44,.45);
+    }
+
+    /* Sections */
+    main{padding: 10px 0 40px;}
+    .sectionTitle{
+      text-align:center;
+      margin: 38px 0 16px;
+      font-size: 34px;
+      letter-spacing: -0.6px;
+    }
+    .sectionSub{
+      text-align:center;
+      margin: -6px auto 22px;
+      max-width: 60ch;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* How it works (4 cards) */
+    .grid4{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    @media(max-width: 980px){
+      .grid4{grid-template-columns: repeat(2, 1fr);}
+    }
+    @media(max-width: 560px){
+      .grid4{grid-template-columns: 1fr;}
+    }
+    .step{
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 18px 50px rgba(0,0,0,.25);
+    }
+    .stepNum{
+      width: 38px; height: 38px;
+      border-radius: 999px;
+      display:grid; place-items:center;
+      font-weight: 950;
+      color: #0b0b10;
+      background: rgba(255,107,44,.95);
+      box-shadow: 0 14px 40px rgba(255,107,44,.22);
+      margin-bottom: 12px;
+    }
+    .stepTitle{
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+    .stepDesc{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Feature blocks (2 big cards) */
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    @media(max-width: 900px){
+      .grid2{grid-template-columns: 1fr;}
+    }
+    .bigCard{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 22px;
+      box-shadow: 0 22px 70px rgba(0,0,0,.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .bigCard::before{
+      content:"";
+      position:absolute;
+      inset:-120px -120px auto auto;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(255,107,44,.22), transparent 60%);
+      filter: blur(2px);
+    }
+    .bigTitle{
+      font-size: 22px;
+      font-weight: 950;
+      letter-spacing: -0.4px;
+      margin: 0 0 10px 0;
+    }
+    .bigText{
+      margin:0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: 52ch;
+    }
+
+    /* FAQ accordion */
+    .faq{
+      width: min(860px, 100%);
+      margin: 0 auto;
+      display:grid;
+      gap: 12px;
+    }
+    details{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 14px 16px;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight: 900;
+      font-size: 16px;
+      letter-spacing:-0.2px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    summary::-webkit-details-marker{display:none;}
+    .chev{
+      width: 10px; height: 10px;
+      border-right: 2px solid rgba(255,255,255,.65);
+      border-bottom: 2px solid rgba(255,255,255,.65);
+      transform: rotate(45deg);
+      transition: transform .18s ease;
+      margin-left: 12px;
+    }
+    details[open] .chev{transform: rotate(225deg);}
+    .answer{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    /* Footer */
+    footer{
+      padding: 28px 0 40px;
+      color: rgba(255,255,255,.50);
+      font-size: 12px;
+      text-align:center;
+    }
+
+    /* Keep hero tall enough to show form without scrolling on most screens */
+    @media(min-height: 740px){
+      header{padding-top: 56px;}
+    }
   </style>
 </head>
 
 <body>
-  <header class="container">
-    <nav class="nav">
-      <a class="brand" href="/">
-        <div class="logo">M</div>
-        <div>
-          <div class="name">Marator</div>
-          <div style="font-size:12px;color:rgba(11,18,32,.60);margin-top:2px;">Adaptive marathon training</div>
-        </div>
-      </a>
-
-      <div class="navlinks">
-        <a href="#features">Features</a>
-        <a href="#how">How it works</a>
-        <a href="#signup">Early access</a>
-      </div>
-
-      <a class="btn primary" href="#signup">Get notified</a>
-    </nav>
-
-    <section class="hero">
-      <div>
-        <div class="kicker"><b>Launching soon</b> • Early access + beta invites</div>
-        <h1>Train for your marathon — even when life gets messy.</h1>
-        <p class="sub">
-          Marator builds a marathon plan around your schedule and automatically recalculates it when you miss runs,
-          travel, or play other sports — so you stay consistent without restarting from scratch.
-        </p>
-
-        <div class="proof">
-          <div class="badge"><span class="stars">★★★★★</span> <span>Premium training feel</span></div>
-          <div class="badge">📅 Adaptive calendar plan</div>
-          <div class="badge">🎯 Goal-time focused</div>
-        </div>
-
-        <div class="ctas">
-          <a class="btn primary" href="#signup">Get notified</a>
-          <a class="btn ghost" href="/privacy">Privacy policy</a>
-        </div>
-
-        <div class="tiny">No spam. Unsubscribe anytime. Beta invites via TestFlight.</div>
-      </div>
-
-      <div class="phoneCard" aria-label="App preview">
-        <div class="phone">
-          <div class="notch"></div>
-          <div class="screen">
-            <span class="pill">Plan updated</span>
-            <h3>Your training adapts automatically</h3>
-            <p>Missed Tuesday? Marator rebuilds the week so you still progress safely.</p>
-
-            <div class="miniGrid">
-              <div class="mini">
-                <div class="t">Today</div>
-                <div class="d">Easy Run • 35 min<br/>Keep it relaxed.</div>
-              </div>
-              <div class="mini">
-                <div class="t">Tomorrow</div>
-                <div class="d">Intervals • 8×2 min<br/>Adjusted from missed run.</div>
-              </div>
-              <div class="mini">
-                <div class="t">Long run</div>
-                <div class="d">Sunday • 1h 45m<br/>Build endurance gradually.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- If you later want a real screenshot: replace the phone div with an <img> inside a rounded container -->
-      </div>
-    </section>
-  </header>
-
-  <main class="container">
-    <section id="features" class="section">
-      <h2 class="sectionTitle">Built for real runners with real schedules</h2>
-      <div class="grid3">
-        <div class="card">
-          <div class="h">🧠 Adaptive plan engine</div>
-          <div class="d">Your plan recalculates when you miss sessions so the week still makes sense.</div>
-        </div>
-        <div class="card">
-          <div class="h">📅 Calendar-first training</div>
-          <div class="d">See exactly what to do each day — workouts, rest, and key sessions.</div>
-        </div>
-        <div class="card">
-          <div class="h">🎯 Goal-time focused</div>
-          <div class="d">Train toward a realistic finish time with pacing guidance and progression.</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="how" class="section">
-      <div class="how">
-        <div class="card">
-          <div class="h">How it works</div>
-          <div class="d">
-            <ol style="margin:10px 0 0; padding-left:18px; line-height:1.7;">
-              <li>Choose race date, distance, and goal time.</li>
-              <li>Tell Marator your weekly availability + other sports.</li>
-              <li>Follow the plan — if you miss runs, the plan adapts.</li>
-            </ol>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="h">Why this is different</div>
-          <div class="d">
-            Most plans break when you miss a week. Marator keeps you moving forward with a living schedule that
-            updates automatically—so your plan matches your reality.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="signup" class="section">
-      <div class="signup">
-        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;">
+  <div class="topbar">
+    <div class="container">
+      <nav>
+        <a class="brand" href="/">
+          <div class="logo">M</div>
           <div>
-            <div style="font-weight:900; font-size:18px; letter-spacing:-0.3px;">Get notified (and join beta)</div>
-            <div style="color:rgba(11,18,32,.65); margin-top:4px; font-size:14px;">
-              Enter your email and we’ll invite beta testers first.
-            </div>
+            <div class="name">Marator</div>
+            <div class="tag">Adaptive marathon training</div>
           </div>
-          <div class="badge">🚀 Launch updates</div>
+        </a>
+
+        <div class="navlinks">
+          <a href="#how">How it works</a>
+          <a href="#faq">FAQ</a>
+          <a href="/privacy">Privacy</a>
+        </div>
+
+        <a class="btn primary" href="#signup">Get notified</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="container">
+    <div class="hero">
+      <div class="kicker"><span class="dot"></span> Launching soon • Beta invites</div>
+
+      <h1>Your easy way to <span class="accent">start</span><br/>marathon training.</h1>
+
+      <p class="sub">
+        A plan that updates itself when you miss runs — so you stay consistent without restarting.
+      </p>
+
+      <div class="heroActions">
+        <a class="btn primary" href="#signup">Join waitlist</a>
+        <a class="btn" href="#how">How it works</a>
+      </div>
+
+      <!-- EMAIL FORM ABOVE THE FOLD -->
+      <div id="signup" class="signup">
+        <div class="signupTop">
+          <div class="signupTitle">Get notified (and join beta)</div>
+          <div class="signupHint">One email. No spam.</div>
         </div>
 
         <form action="https://formspree.io/f/xzdvvdpd" method="POST">
-          <div class="row" style="margin-top:12px;">
-            <input required type="email" name="email" placeholder="you@example.com" autocomplete="email" />
-            <button class="btn primary" type="submit" style="padding:12px 16px; border-radius:14px;">Notify me</button>
+          <div class="row">
+            <input required type="email" name="email" placeholder="Your email" autocomplete="email" />
+            <button class="submitBtn" type="submit">Notify me</button>
           </div>
 
           <div class="checks">
             <label>
               <input type="checkbox" name="notify_launch" checked />
-              <span>Notify me when Marator launches</span>
+              <span>Launch updates</span>
             </label>
             <label>
               <input type="checkbox" name="beta_interest" />
-              <span>I want TestFlight beta access</span>
+              <span>TestFlight beta</span>
             </label>
           </div>
 
-          <!-- Helpful metadata for your inbox -->
           <input type="hidden" name="_subject" value="New Marator signup" />
           <input type="hidden" name="_template" value="table" />
 
           <div class="fine">
-            No spam. Unsubscribe anytime. See <a href="/privacy">Privacy Policy</a>.
+            By signing up you agree to receive emails about Marator.
+            See <a href="/privacy">Privacy Policy</a>.
           </div>
         </form>
       </div>
-    </section>
+
+      <div class="proofRow">
+        <div class="proof"><span class="chip"></span> Adaptive plans</div>
+        <div class="proof"><span class="chip"></span> Calendar-first</div>
+        <div class="proof"><span class="chip"></span> Goal-time focused</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2 id="how" class="sectionTitle">How it works</h2>
+    <p class="sectionSub">Four simple steps to a plan that fits your life.</p>
+
+    <div class="grid4">
+      <div class="step">
+        <div class="stepNum">1</div>
+        <div class="stepTitle">Answer a few questions</div>
+        <p class="stepDesc">Race date, distance, goal time, and weekly schedule.</p>
+      </div>
+      <div class="step">
+        <div class="stepNum">2</div>
+        <div class="stepTitle">Get your plan</div>
+        <p class="stepDesc">A clear day-by-day calendar that’s easy to follow.</p>
+      </div>
+      <div class="step">
+        <div class="stepNum">3</div>
+        <div class="stepTitle">Miss a day? No problem</div>
+        <p class="stepDesc">Marator recalculates and keeps your week sensible.</p>
+      </div>
+      <div class="step">
+        <div class="stepNum">4</div>
+        <div class="stepTitle">Show up on race day</div>
+        <p class="stepDesc">Consistent training without restarting from scratch.</p>
+      </div>
+    </div>
+
+    <h2 class="sectionTitle">Everything you need</h2>
+    <p class="sectionSub">Simple features that keep you moving forward.</p>
+
+    <div class="grid2">
+      <div class="bigCard">
+        <div class="bigTitle">Adaptive training plan</div>
+        <p class="bigText">Your schedule updates automatically when life happens — travel, sick days, missed runs.</p>
+      </div>
+      <div class="bigCard">
+        <div class="bigTitle">Apple Health friendly</div>
+        <p class="bigText">Optional sync to keep your progress consistent across devices.</p>
+      </div>
+    </div>
+
+    <h2 id="faq" class="sectionTitle">Frequently asked questions</h2>
+    <p class="sectionSub">Quick answers. No fluff.</p>
+
+    <div class="faq">
+      <details>
+        <summary>Do I need marathon experience? <span class="chev"></span></summary>
+        <div class="answer">No. Marator is designed to start from your current level and build gradually.</div>
+      </details>
+
+      <details>
+        <summary>What if I miss a session? <span class="chev"></span></summary>
+        <div class="answer">That’s the point — the plan recalculates so you can continue safely without restarting.</div>
+      </details>
+
+      <details>
+        <summary>Can I train around other sports? <span class="chev"></span></summary>
+        <div class="answer">Yes. You can plan around activities like soccer, gym, or rest days.</div>
+      </details>
+
+      <details>
+        <summary>How do beta invites work? <span class="chev"></span></summary>
+        <div class="answer">Check “TestFlight beta” and we’ll email you when we start inviting early testers.</div>
+      </details>
+    </div>
 
     <footer>
-      <div>© <span id="y"></span> Marator</div>
-      <div>
-        <a href="/privacy">Privacy</a> ·
-        <a href="/faq">FAQ</a>
-      </div>
+      © <span id="y"></span> Marator · <a href="/privacy">Privacy</a> · <a href="/faq">FAQ</a>
     </footer>
   </main>
 

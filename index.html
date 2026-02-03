@@ -80,58 +80,24 @@
     }
     .navlinks a:hover{background: rgba(255,255,255,.05);}
 
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      text-decoration:none;
-      border-radius: 999px;
-      padding: 12px 18px;
-      font-weight: 800;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    @media(max-width: 780px){
+      .navlinks{display:none;}
     }
-    .btn.primary{
-      border: none;
-      background: var(--accent);
-      color: #0b0b10;
-      box-shadow: 0 18px 60px rgba(255,107,44,.30);
-    }
-    .btn.primary:hover{filter:brightness(1.03)}
-    .btn:active{transform: translateY(1px);}
 
     /* HERO */
-    header{
-      padding: 42px 0 26px;
-    }
+    header{ padding: 44px 0 18px; }
+
     .hero{
       display:flex;
       flex-direction:column;
       align-items:center;
       text-align:center;
-      gap: 16px;
-    }
-
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,107,44,.28);
-      background: rgba(255,107,44,.10);
-      color: rgba(255,255,255,.78);
-      font-weight: 700;
-      font-size: 13px;
-    }
-    .kicker .dot{
-      width:8px; height:8px;
-      background: var(--accent);
-      border-radius: 99px;
-      box-shadow: 0 0 18px rgba(255,107,44,.55);
+      gap: 14px;
     }
 
     h1{
       margin: 0;
-      font-size: clamp(40px, 5vw, 64px);
+      font-size: clamp(40px, 5vw, 66px);
       line-height: 1.0;
       letter-spacing: -1.2px;
     }
@@ -139,30 +105,41 @@
     .sub{
       margin: 0;
       max-width: 58ch;
-      font-size: clamp(16px, 1.6vw, 18px);
+      font-size: clamp(16px, 1.6vw, 19px);
       line-height: 1.55;
       color: var(--muted);
-    }
-
-    .heroActions{
-      display:flex;
-      gap: 12px;
-      flex-wrap:wrap;
-      justify-content:center;
-      align-items:center;
-      margin-top: 6px;
     }
 
     /* Email form ABOVE FOLD */
     .signup{
       width: min(760px, 100%);
-      margin-top: 12px;
-      padding: 14px;
+      margin-top: 10px;
+      padding: 16px;
       border-radius: 22px;
       border: 1px solid var(--border);
       background: rgba(255,255,255,.05);
       box-shadow: var(--shadow);
     }
+
+    /* moved kicker here, larger */
+    .launchKicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,107,44,.30);
+      background: rgba(255,107,44,.10);
+      color: rgba(255,255,255,.82);
+      font-weight: 800;
+      font-size: 14px;
+      margin: 0 auto 12px;
+    }
+    .launchKicker .dot{
+      width:9px; height:9px;
+      background: var(--accent);
+      border-radius: 99px;
+      box-shadow: 0 0 18px rgba(255,107,44,.55);
+    }
+
     .signupTop{
       display:flex;
       align-items:center;
@@ -173,7 +150,7 @@
     }
     .signupTitle{
       font-size: 16px;
-      font-weight: 850;
+      font-weight: 900;
       letter-spacing: -0.2px;
     }
     .signupHint{
@@ -207,7 +184,7 @@
       padding: 14px 18px;
       background: var(--accent);
       color: #0b0b10;
-      font-weight: 900;
+      font-weight: 950;
       cursor: pointer;
       font-size: 15px;
       box-shadow: 0 18px 60px rgba(255,107,44,.28);
@@ -244,43 +221,17 @@
     .fine a{color: rgba(255,255,255,.72); text-decoration:none;}
     .fine a:hover{text-decoration:underline;}
 
-    /* Social proof row (no fake claims) */
-    .proofRow{
-      display:flex;
-      gap: 12px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top: 10px;
-      color: rgba(255,255,255,.70);
-      font-size: 13px;
-    }
-    .proof{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.03);
-    }
-    .proof .chip{
-      width: 10px; height: 10px;
-      border-radius: 99px;
-      background: rgba(255,107,44,.95);
-      box-shadow: 0 0 18px rgba(255,107,44,.45);
-    }
-
     /* Sections */
-    main{padding: 10px 0 40px;}
+    main{padding: 10px 0 44px;}
     .sectionTitle{
       text-align:center;
-      margin: 38px 0 16px;
+      margin: 38px 0 12px;
       font-size: 34px;
       letter-spacing: -0.6px;
     }
     .sectionSub{
       text-align:center;
-      margin: -6px auto 22px;
+      margin: -4px auto 22px;
       max-width: 60ch;
       color: var(--muted);
       font-size: 16px;
@@ -318,7 +269,7 @@
     }
     .stepTitle{
       font-size: 18px;
-      font-weight: 900;
+      font-weight: 950;
       margin-bottom: 8px;
       letter-spacing: -0.2px;
     }
@@ -327,47 +278,6 @@
       color: var(--muted);
       font-size: 14px;
       line-height: 1.5;
-    }
-
-    /* Feature blocks (2 big cards) */
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 12px;
-    }
-    @media(max-width: 900px){
-      .grid2{grid-template-columns: 1fr;}
-    }
-    .bigCard{
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding: 22px;
-      box-shadow: 0 22px 70px rgba(0,0,0,.35);
-      position: relative;
-      overflow: hidden;
-    }
-    .bigCard::before{
-      content:"";
-      position:absolute;
-      inset:-120px -120px auto auto;
-      width: 260px; height: 260px;
-      background: radial-gradient(circle, rgba(255,107,44,.22), transparent 60%);
-      filter: blur(2px);
-    }
-    .bigTitle{
-      font-size: 22px;
-      font-weight: 950;
-      letter-spacing: -0.4px;
-      margin: 0 0 10px 0;
-    }
-    .bigText{
-      margin:0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.55;
-      max-width: 52ch;
     }
 
     /* FAQ accordion */
@@ -386,7 +296,7 @@
     summary{
       cursor:pointer;
       list-style:none;
-      font-weight: 900;
+      font-weight: 950;
       font-size: 16px;
       letter-spacing:-0.2px;
       display:flex;
@@ -411,15 +321,85 @@
       line-height: 1.55;
     }
 
-    /* Footer */
-    footer{
-      padding: 28px 0 40px;
-      color: rgba(255,255,255,.50);
-      font-size: 12px;
-      text-align:center;
+    /* FOOTER */
+    .footerWrap{
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.02);
+      padding: 34px 0 26px;
+      margin-top: 40px;
+    }
+    .footerGrid{
+      display:grid;
+      grid-template-columns: 1.3fr 1fr 1fr 1.2fr;
+      gap: 18px;
+    }
+    @media(max-width: 900px){
+      .footerGrid{grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width: 560px){
+      .footerGrid{grid-template-columns: 1fr; }
+    }
+    .footTitle{
+      font-weight: 900;
+      margin: 0 0 10px 0;
+      letter-spacing: -0.2px;
+    }
+    .footText{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .footLinks{
+      display:grid;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .footLinks a{
+      text-decoration:none;
+      color: rgba(255,255,255,.72);
+    }
+    .footLinks a:hover{text-decoration:underline;}
+
+    .miniForm{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .miniForm input{
+      flex:1;
+      min-width: 220px;
+      border-radius: 14px;
+      padding: 12px 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.35);
+      color: var(--text);
+      outline:none;
+      font-size: 14px;
+    }
+    .miniForm button{
+      border: none;
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: var(--accent);
+      color: #0b0b10;
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 18px 60px rgba(255,107,44,.22);
     }
 
-    /* Keep hero tall enough to show form without scrolling on most screens */
+    .legal{
+      margin-top: 18px;
+      color: rgba(255,255,255,.45);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    /* Keep hero tall enough so form is visible on most screens */
     @media(min-height: 740px){
       header{padding-top: 56px;}
     }
@@ -444,28 +424,27 @@
           <a href="/privacy">Privacy</a>
         </div>
 
-        <a class="btn primary" href="#signup">Get notified</a>
+        <!-- removed "Get notified" button -->
+        <div style="width:1px;"></div>
       </nav>
     </div>
   </div>
 
   <header class="container">
     <div class="hero">
-      <div class="kicker"><span class="dot"></span> Launching soon • Beta invites</div>
-
       <h1>Your easy way to <span class="accent">start</span><br/>marathon training.</h1>
 
       <p class="sub">
         A plan that updates itself when you miss runs — so you stay consistent without restarting.
       </p>
 
-      <div class="heroActions">
-        <a class="btn primary" href="#signup">Join waitlist</a>
-        <a class="btn" href="#how">How it works</a>
-      </div>
-
       <!-- EMAIL FORM ABOVE THE FOLD -->
       <div id="signup" class="signup">
+        <!-- moved + bigger -->
+        <div class="launchKicker">
+          <span class="dot"></span> Launching soon • Beta invites
+        </div>
+
         <div class="signupTop">
           <div class="signupTitle">Get notified (and join beta)</div>
           <div class="signupHint">One email. No spam.</div>
@@ -497,12 +476,6 @@
           </div>
         </form>
       </div>
-
-      <div class="proofRow">
-        <div class="proof"><span class="chip"></span> Adaptive plans</div>
-        <div class="proof"><span class="chip"></span> Calendar-first</div>
-        <div class="proof"><span class="chip"></span> Goal-time focused</div>
-      </div>
     </div>
   </header>
 
@@ -533,20 +506,6 @@
       </div>
     </div>
 
-    <h2 class="sectionTitle">Everything you need</h2>
-    <p class="sectionSub">Simple features that keep you moving forward.</p>
-
-    <div class="grid2">
-      <div class="bigCard">
-        <div class="bigTitle">Adaptive training plan</div>
-        <p class="bigText">Your schedule updates automatically when life happens — travel, sick days, missed runs.</p>
-      </div>
-      <div class="bigCard">
-        <div class="bigTitle">Apple Health friendly</div>
-        <p class="bigText">Optional sync to keep your progress consistent across devices.</p>
-      </div>
-    </div>
-
     <h2 id="faq" class="sectionTitle">Frequently asked questions</h2>
     <p class="sectionSub">Quick answers. No fluff.</p>
 
@@ -558,7 +517,7 @@
 
       <details>
         <summary>What if I miss a session? <span class="chev"></span></summary>
-        <div class="answer">That’s the point — the plan recalculates so you can continue safely without restarting.</div>
+        <div class="answer">The plan recalculates so you can continue safely without restarting.</div>
       </details>
 
       <details>
@@ -572,9 +531,64 @@
       </details>
     </div>
 
-    <footer>
-      © <span id="y"></span> Marator · <a href="/privacy">Privacy</a> · <a href="/faq">FAQ</a>
-    </footer>
+    <!-- FOOTER -->
+    <div class="footerWrap">
+      <div class="container">
+        <div class="footerGrid">
+          <div>
+            <div class="footTitle">Marator</div>
+            <p class="footText">
+              Adaptive marathon training that updates your plan when life happens.
+              Built for consistency — not perfection.
+            </p>
+          </div>
+
+          <div>
+            <div class="footTitle">Product</div>
+            <div class="footLinks">
+              <a href="#how">How it works</a>
+              <a href="#faq">FAQ</a>
+              <a href="#signup">Join beta</a>
+            </div>
+          </div>
+
+          <div>
+            <div class="footTitle">Legal</div>
+            <div class="footLinks">
+              <a href="/privacy">Privacy Policy</a>
+              <a href="/terms">Terms of Service</a>
+            </div>
+          </div>
+
+          <div>
+            <div class="footTitle">Stay updated</div>
+            <p class="footText" style="margin-bottom:8px;">
+              Get launch updates (and beta invites) in your inbox.
+            </p>
+
+            <!-- optional footer form: uses same Formspree endpoint -->
+            <form class="miniForm" action="https://formspree.io/f/xzdvvdpd" method="POST">
+              <input type="email" name="email" placeholder="Your email" required>
+              <input type="hidden" name="_subject" value="New Marator signup (footer)">
+              <button type="submit">Send</button>
+            </form>
+
+            <div class="footText" style="margin-top:10px;">
+              Contact: <a href="mailto:hello@marator.app">hello@marator.app</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="legal">
+          <div>© <span id="y"></span> Marator. All rights reserved.</div>
+          <div class="footLinks" style="display:flex;gap:12px;">
+            <a href="/contact">Contact us</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <script>

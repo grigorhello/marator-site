@@ -6,590 +6,137 @@
   <title>Marator — Launching Soon</title>
   <meta name="description" content="Marator is an adaptive marathon training app that updates your plan when life happens." />
 
-  <style>
-    :root{
-      --bg:#07070b;
-      --bg2:#0b0b10;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.04);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.62);
-      --accent: #ff6b2c; /* Marator orange */
-      --accent2:#ff9a6b;
-      --shadow: 0 28px 80px rgba(0,0,0,.55);
-      --radius: 18px;
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color: var(--text);
-      background:
-        radial-gradient(900px 520px at 50% -50px, rgba(255,107,44,.22), transparent 60%),
-        radial-gradient(900px 520px at 18% 20%, rgba(120,80,255,.12), transparent 60%),
-        radial-gradient(900px 520px at 82% 35%, rgba(255,255,255,.06), transparent 65%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-    }
-
-    a{color:inherit}
-    .container{width:min(1120px,100%); margin:0 auto; padding:0 18px;}
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-      background: rgba(7,7,11,.58);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-
-    /* NAV */
-    nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding: 14px 0;
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-      text-decoration:none;
-    }
-    .logo{
-      width:40px; height:40px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 14px 40px rgba(255,107,44,.30);
-      display:grid; place-items:center;
-      color:#0b0b10; font-weight:900;
-      letter-spacing:-0.4px;
-    }
-    .brand .name{font-weight:850; letter-spacing:-0.3px; line-height:1;}
-    .brand .tag{font-size:12px; color: var(--muted); margin-top:2px;}
-
-    .navlinks{
-      display:flex; gap:18px; align-items:center;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .navlinks a{
-      text-decoration:none;
-      padding: 8px 10px;
-      border-radius: 999px;
-    }
-    .navlinks a:hover{background: rgba(255,255,255,.05);}
-
-    @media(max-width: 780px){
-      .navlinks{display:none;}
-    }
-
-    /* HERO */
-    header{ padding: 80px 0 18px;}
-
-    .hero{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      text-align:center;
-      gap: 14px;
-    }
-
-    h1{
-      margin: 0;
-      font-size: clamp(40px, 5vw, 66px);
-      line-height: 1.0;
-      letter-spacing: -1.2px;
-    }
-    .accent{color: var(--accent);}
-    .sub{
-      margin: 0;
-      max-width: 58ch;
-      font-size: clamp(16px, 1.6vw, 19px);
-      line-height: 1.55;
-      color: var(--muted);
-    }
-
-    /* Email form ABOVE FOLD */
-    .signup{
-      width: min(760px, 100%);
-      margin-top: 10px;
-      padding: 16px;
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.05);
-      box-shadow: var(--shadow);
-    }
-
-    /* moved kicker here, larger */
-    .launchKicker{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,107,44,.30);
-      background: rgba(255,107,44,.10);
-      color: rgba(255,255,255,.82);
-      font-weight: 800;
-      font-size: 14px;
-      margin: 0 auto 12px;
-    }
-    .launchKicker .dot{
-      width:9px; height:9px;
-      background: var(--accent);
-      border-radius: 99px;
-      box-shadow: 0 0 18px rgba(255,107,44,.55);
-    }
-
-    .signupTop{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-bottom: 10px;
-    }
-    .signupTitle{
-      font-size: 16px;
-      font-weight: 900;
-      letter-spacing: -0.2px;
-    }
-    .signupHint{
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    form{margin:0;}
-    .row{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-    input[type="email"]{
-      flex: 1;
-      min-width: 240px;
-      border-radius: 16px;
-      padding: 14px 14px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.35);
-      color: var(--text);
-      outline: none;
-      font-size: 15px;
-    }
-    input[type="email"]::placeholder{color: rgba(255,255,255,.45);}
-
-    .submitBtn{
-      border: none;
-      border-radius: 16px;
-      padding: 14px 18px;
-      background: var(--accent);
-      color: #0b0b10;
-      font-weight: 950;
-      cursor: pointer;
-      font-size: 15px;
-      box-shadow: 0 18px 60px rgba(255,107,44,.28);
-    }
-    .submitBtn:hover{filter:brightness(1.03)}
-
-    .checks{
-      display:flex;
-      justify-content:center;
-      gap: 18px;
-      flex-wrap:wrap;
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    label{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.03);
-    }
-    input[type="checkbox"]{transform: scale(1.05);}
-
-    .fine{
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(255,255,255,.52);
-      text-align:center;
-      line-height: 1.45;
-    }
-    .fine a{color: rgba(255,255,255,.72); text-decoration:none;}
-    .fine a:hover{text-decoration:underline;}
-
-    /* Sections */
-    main{padding: 30px 0 80px;}
-    .sectionTitle{
-      text-align:center;
-      margin: 64px 0 16px;
-      font-size: 34px;
-      letter-spacing: -0.6px;
-    }
-    .sectionSub{
-      text-align:center;
-      margin: 8px auto 34px;
-      max-width: 60ch;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.5;
-    }
-
-    /* How it works (4 cards) */
-    .grid4{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-    @media(max-width: 980px){
-      .grid4{grid-template-columns: repeat(2, 1fr);}
-    }
-    @media(max-width: 560px){
-      .grid4{grid-template-columns: 1fr;}
-    }
-    .step{
-      padding: 18px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      box-shadow: 0 18px 50px rgba(0,0,0,.25);
-    }
-    .stepNum{
-      width: 38px; height: 38px;
-      border-radius: 999px;
-      display:grid; place-items:center;
-      font-weight: 950;
-      color: #0b0b10;
-      background: rgba(255,107,44,.95);
-      box-shadow: 0 14px 40px rgba(255,107,44,.22);
-      margin-bottom: 12px;
-    }
-    .stepTitle{
-      font-size: 18px;
-      font-weight: 950;
-      margin-bottom: 8px;
-      letter-spacing: -0.2px;
-    }
-    .stepDesc{
-      margin:0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    /* FAQ accordion */
-    .faq{
-      width: min(860px, 100%);
-      margin: 0 auto;
-      display:grid;
-      gap: 12px;
-    }
-    details{
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding: 14px 16px;
-    }
-    summary{
-      cursor:pointer;
-      list-style:none;
-      font-weight: 950;
-      font-size: 16px;
-      letter-spacing:-0.2px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    summary::-webkit-details-marker{display:none;}
-    .chev{
-      width: 10px; height: 10px;
-      border-right: 2px solid rgba(255,255,255,.65);
-      border-bottom: 2px solid rgba(255,255,255,.65);
-      transform: rotate(45deg);
-      transition: transform .18s ease;
-      margin-left: 12px;
-    }
-    details[open] .chev{transform: rotate(225deg);}
-    .answer{
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    /* FOOTER */
-    .footerWrap{
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      border-top: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.02);
-      padding: 34px 0 26px;
-      margin-top: 80px;
-    }
-    .footerGrid{
-      display:grid;
-      grid-template-columns: 1.3fr 1fr 1fr 1.2fr;
-      gap: 18px;
-    }
-    @media(max-width: 900px){
-      .footerGrid{grid-template-columns: 1fr 1fr; }
-    }
-    @media(max-width: 560px){
-      .footerGrid{grid-template-columns: 1fr; }
-    }
-    .footTitle{
-      font-weight: 900;
-      margin: 0 0 10px 0;
-      letter-spacing: -0.2px;
-    }
-    .footText{
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-      margin: 0;
-    }
-    .footLinks{
-      display:grid;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .footLinks a{
-      text-decoration:none;
-      color: rgba(255,255,255,.72);
-    }
-    .footLinks a:hover{text-decoration:underline;}
-
-    .miniForm{
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-      margin-top: 10px;
-    }
-    .miniForm input{
-      flex:1;
-      min-width: 220px;
-      border-radius: 14px;
-      padding: 12px 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.35);
-      color: var(--text);
-      outline:none;
-      font-size: 14px;
-    }
-    .miniForm button{
-      border: none;
-      border-radius: 14px;
-      padding: 12px 14px;
-      background: var(--accent);
-      color: #0b0b10;
-      font-weight: 950;
-      cursor: pointer;
-      box-shadow: 0 18px 60px rgba(255,107,44,.22);
-    }
-
-    .legal{
-      margin-top: 18px;
-      color: rgba(255,255,255,.45);
-      font-size: 12px;
-      display:flex;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-
-    /* Keep hero tall enough so form is visible on most screens */
-    @media(min-height: 740px){
-      header{padding-top: 56px;}
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 
 <body>
+  <!-- Top bar -->
   <div class="topbar">
-    <div class="container">
-      <nav>
-        <a class="brand" href="/">
-          <div class="logo">M</div>
-          <div>
-            <div class="name">Marator</div>
-            <div class="tag">Adaptive marathon training</div>
-          </div>
-        </a>
-
-        <div class="navlinks">
-          <a href="#how">How it works</a>
-          <a href="#faq">FAQ</a>
-          <a href="/privacy">Privacy</a>
+    <div class="container nav">
+      <a class="brand" href="/">
+        <div class="logo">M</div>
+        <div class="brandText">
+          <div class="name">Marator</div>
+          <div class="tag">Adaptive marathon training</div>
         </div>
+      </a>
 
-        <!-- removed "Get notified" button -->
-        <div style="width:1px;"></div>
-      </nav>
+      <div class="navlinks">
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a href="/privacy">Privacy</a>
+      </div>
     </div>
   </div>
 
-  <header>
-    <div class="hero">
-      <h1>Your easy way to <span class="accent">start</span><br/>marathon training.</h1>
+  <!-- Hero -->
+  <header class="container hero">
+    <h1>Your easy way to <span class="accent">start</span><br/>marathon training.</h1>
+    <p class="sub">A plan that updates itself when you miss runs — so you stay consistent without restarting.</p>
 
-      <p class="sub">
-        A plan that updates itself when you miss runs — so you stay consistent without restarting.
-      </p>
+    <section id="signup" class="card">
+      <div class="kicker"><span class="dot"></span> Launching soon • Beta invites</div>
 
-      <!-- EMAIL FORM ABOVE THE FOLD -->
-      <div id="signup" class="signup">
-        <!-- moved + bigger -->
-        <div class="launchKicker">
-          <span class="dot"></span> Launching soon • Beta invites
-        </div>
-
-        <div class="signupTop">
-          <div class="signupTitle">Get notified (and join beta)</div>
-          <div class="signupHint">One email. No spam.</div>
-        </div>
-
-        <form action="https://formspree.io/f/xzdvvdpd" method="POST">
-          <div class="row">
-            <input required type="email" name="email" placeholder="Your email" autocomplete="email" />
-            <button class="submitBtn" type="submit">Notify me</button>
-          </div>
-
-          <div class="checks">
-            <label>
-              <input type="checkbox" name="notify_launch" checked />
-              <span>Launch updates</span>
-            </label>
-            <label>
-              <input type="checkbox" name="beta_interest" />
-              <span>TestFlight beta</span>
-            </label>
-          </div>
-
-          <input type="hidden" name="_subject" value="New Marator signup" />
-          <input type="hidden" name="_template" value="table" />
-        </form>
+      <div class="cardTop">
+        <div class="cardTitle">Get notified (and join beta)</div>
+        <div class="cardHint">One email. No spam.</div>
       </div>
-    </div>
+
+      <form class="form" action="https://formspree.io/f/xzdvvdpd" method="POST">
+        <div class="row">
+          <input type="email" name="email" placeholder="Your email" autocomplete="email" required />
+          <button type="submit">Notify me</button>
+        </div>
+
+        <div class="checks">
+          <label><input type="checkbox" name="notify_launch" checked /> Launch updates</label>
+          <label><input type="checkbox" name="beta_interest" /> TestFlight beta</label>
+        </div>
+
+        <input type="hidden" name="_subject" value="New Marator signup" />
+        <input type="hidden" name="_template" value="table" />
+
+        <p class="fine">
+          By signing up you agree to receive emails about Marator.
+          See <a href="/privacy">Privacy Policy</a>.
+        </p>
+      </form>
+    </section>
   </header>
 
+  <!-- Content -->
   <main class="container">
-    <h2 id="how" class="sectionTitle">How it works</h2>
-    <p class="sectionSub">Four simple steps to a plan that fits your life.</p>
+    <h2 id="how">How it works</h2>
 
-    <div class="grid4">
+    <div class="steps">
       <div class="step">
-        <div class="stepNum">1</div>
-        <div class="stepTitle">Answer a few questions</div>
-        <p class="stepDesc">Race date, distance, goal time, and weekly schedule.</p>
+        <div class="num">1</div>
+        <div class="title">Answer a few questions</div>
+        <div class="desc">Race date, distance, goal time, schedule.</div>
       </div>
+
       <div class="step">
-        <div class="stepNum">2</div>
-        <div class="stepTitle">Get your plan</div>
-        <p class="stepDesc">A clear day-by-day calendar that’s easy to follow.</p>
+        <div class="num">2</div>
+        <div class="title">Get a simple plan</div>
+        <div class="desc">Clear day-by-day training calendar.</div>
       </div>
+
       <div class="step">
-        <div class="stepNum">3</div>
-        <div class="stepTitle">Miss a day? No problem</div>
-        <p class="stepDesc">Marator recalculates and keeps your week sensible.</p>
+        <div class="num">3</div>
+        <div class="title">Missed runs? It adapts</div>
+        <div class="desc">Plan recalculates automatically.</div>
       </div>
+
       <div class="step">
-        <div class="stepNum">4</div>
-        <div class="stepTitle">Show up on race day</div>
-        <p class="stepDesc">Consistent training without restarting from scratch.</p>
+        <div class="num">4</div>
+        <div class="title">Arrive race-day ready</div>
+        <div class="desc">Consistency without restarting.</div>
       </div>
     </div>
 
-    <h2 id="faq" class="sectionTitle">Frequently asked questions</h2>
-    <p class="sectionSub">Quick answers. No fluff.</p>
+    <h2 id="faq">FAQ</h2>
 
     <div class="faq">
       <details>
-        <summary>Do I need marathon experience? <span class="chev"></span></summary>
-        <div class="answer">No. Marator is designed to start from your current level and build gradually.</div>
+        <summary>Do I need marathon experience?</summary>
+        <p>No. Marator starts from your current level and builds gradually.</p>
       </details>
 
       <details>
-        <summary>What if I miss a session? <span class="chev"></span></summary>
-        <div class="answer">The plan recalculates so you can continue safely without restarting.</div>
+        <summary>What if I miss a session?</summary>
+        <p>The plan recalculates so you can continue safely without restarting.</p>
       </details>
 
       <details>
-        <summary>Can I train around other sports? <span class="chev"></span></summary>
-        <div class="answer">Yes. You can plan around activities like soccer, gym, or rest days.</div>
+        <summary>Can I train around other sports?</summary>
+        <p>Yes — you can plan around soccer, gym, or rest days.</p>
       </details>
 
       <details>
-        <summary>How do beta invites work? <span class="chev"></span></summary>
-        <div class="answer">Check “TestFlight beta” and we’ll email you when we start inviting early testers.</div>
+        <summary>How do beta invites work?</summary>
+        <p>Check “TestFlight beta” and we’ll email you when invitations start.</p>
       </details>
-    </div>
-
-    <!-- FOOTER -->
-    <div class="footerWrap">
-      <div class="container">
-        <div class="footerGrid">
-          <div>
-            <div class="footTitle">Marator</div>
-            <p class="footText">
-              Adaptive marathon training that updates your plan when life happens.
-              Built for consistency — not perfection.
-            </p>
-          </div>
-
-          <div>
-            <div class="footTitle">Product</div>
-            <div class="footLinks">
-              <a href="#how">How it works</a>
-              <a href="#faq">FAQ</a>
-              <a href="#signup">Join beta</a>
-            </div>
-          </div>
-
-          <div>
-            <div class="footTitle">Legal</div>
-            <div class="footLinks">
-              <a href="/privacy">Privacy Policy</a>
-              <a href="/terms">Terms of Service</a>
-            </div>
-          </div>
-
-          <div>
-            <div class="footTitle">Stay updated</div>
-            <p class="footText" style="margin-bottom:8px;">
-              Get launch updates (and beta invites) in your inbox.
-            </p>
-
-            <!-- optional footer form: uses same Formspree endpoint -->
-            <form class="miniForm" action="https://formspree.io/f/xzdvvdpd" method="POST">
-              <input type="email" name="email" placeholder="Your email" required>
-              <input type="hidden" name="_subject" value="New Marator signup (footer)">
-              <button type="submit">Send</button>
-            </form>
-
-            <div class="footText" style="margin-top:10px;">
-              Contact: <a href="mailto:hello@marator.app">hello@marator.app</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="legal">
-          <div>© <span id="y"></span> Marator. All rights reserved.</div>
-          <div class="footLinks" style="display:flex;gap:12px;">
-            <a href="/contact">Contact us</a>
-            <a href="/privacy">Privacy</a>
-            <a href="/terms">Terms</a>
-          </div>
-        </div>
-      </div>
     </div>
   </main>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footerGrid">
+      <div>
+        <div class="footerBrand">Marator</div>
+        <div class="footerText">Adaptive marathon training that fits real life.</div>
+        <div class="footerText">© <span id="y"></span> Marator</div>
+      </div>
+
+      <div class="footerLinks">
+        <a href="#faq">FAQ</a>
+        <a href="/contact">Contact us</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>

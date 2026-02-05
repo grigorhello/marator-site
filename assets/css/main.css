@@ -11,7 +11,7 @@
 }
 
 *{box-sizing:border-box}
-html,body{height:100%}
+html, body { min-height: 100%; }
 
 body{
   margin:0;
@@ -287,8 +287,8 @@ details p{
 
 /* Footer full width */
 .footer{
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+  width: 100%;
+  /* margin-left: calc(50% - 50vw); */
   border-top: 1px solid rgba(255,255,255,.08);
   background: rgba(255,255,255,.02);
   padding: 28px 0;
